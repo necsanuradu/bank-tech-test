@@ -9,7 +9,7 @@ Do to its nature financially related the system will have multiple constrains re
 ## Input - output table
 | Input  | Output |
 | ------------- | ------------- |
-| Deposit | Positive Confirmation - You have sucessfully deposited £.. into your account|
+| Deposit | Confirmation - You have sucessfully deposited £.. into your account|
 | Withdraw  |  Confirmation - You have successfully debited your account with the amount of £ ..|
 | Request Balance | Bank statement - transactions(date, credit, debit, ballance)
 
