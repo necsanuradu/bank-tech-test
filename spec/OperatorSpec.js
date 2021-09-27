@@ -13,4 +13,24 @@ describe("Operator class", () => {
       expect(emptyOperator.getStatement()).toEqual("No transactions.");
     });
   });
+
+  describe("# preexisting transactions on the account", () => {
+    let operator;
+    let timeNow = new Date();
+    beforeEach(() => {
+      operatorOnce = new Operator([{ time: timeNow.getTime(), value: 250 }]);
+      operatorTwice = new Operator([
+        { time: timeNow.getTime(), value: 250 },
+        { time: timeNow.getTime(), value: -125 },
+      ]);
+    });
+
+    it("should return 250 for an empty Operator with no transaction history", () => {
+      expect(operatorOnce.getBallance()).toEqual(250);
+    });
+
+    it("should return 125 for an empty Operator with no transaction history", () => {
+      expect(operatorTwice.getBallance()).toEqual(125);
+    });
+  });
 });

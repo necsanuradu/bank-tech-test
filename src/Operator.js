@@ -1,26 +1,41 @@
 "use strict";
 class Operator {
-  #transactionsList;
-  constructor(transactionList) {
-    this.#transactionsList = transactionList;
+  #history;
+  #ballance;
+  #accountView;
+  constructor(history = []) {
+    this.#history = this.#validateHistory(history);
   }
 
-  #runTransactions() {
-    let ballance = 0;
-    let operations = "No transactions.";
-    return [ballance, operations];
+  #runOperationns() {
+    this.#ballance = 0;
+    this.#accountView = [];
+    this.#history.forEach((transaction) => {
+      this.#execute(transaction);
+    });
   }
 
   getBallance() {
-    return this.#runTransactions()[0];
+    this.#runOperationns();
+    return this.#ballance;
   }
 
   getStatement() {
-    return this.#runTransactions()[1];
+    this.#runOperationns();
+    return this.#accountView.length > 0
+      ? this.#accountView
+      : "No transactions.";
   }
 
-  //   set operators(transactionList){
-  //    this._operators = JSON.parse(transactionList).filter((operation) => {
+  #validateHistory(operationnsList) {
+    return operationnsList;
+  }
+
+  #execute(transaction) {
+    this.#ballance += 250;
+  }
+  //   set operators(operationnList){
+  //    this._operators = JSON.parse(operationnList).filter((operation) => {
   //      return true;
   //    });
   //   }
