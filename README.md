@@ -30,7 +30,7 @@ The edge cases described below will not tolerate invalid input and will respond 
 ## Model 
  * The AccountOperator class includes the private methods for both credit and debit operations in addition to the statement and balance attributes(while read using get they execute the #runOperations private function), the statement will serve a readable view with all the transactions executed within the requested timeframe.
  
-## running the programm
+## Running the programm
  * please run in your terminal once located inside the main directory of this application:
  #### open SpecRunner.html
 
