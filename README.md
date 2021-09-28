@@ -56,12 +56,12 @@ The edge cases described below will not tolerate invalid input and will respond 
 ```
 As a user
 In order to debit my account
-I should be able to introduce the ammount aware of its minimum/maximum limits
+I should be able to introduce the desired ammount 
 ```
 ```
 As a user
 In order to credit my account
-I should be able to introduce the ammount aware of its current ballance
+I should be able to introduce the desired ammount 
 ```
 ```
 As a user
