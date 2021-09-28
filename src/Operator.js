@@ -2,7 +2,8 @@
 class AccountOperator {
   #history;
   constructor(history = []) {
-    this.#history = validateHistory(history);
+    validateHistory(history);
+    this.#history = history;
   }
 
   creditAccount(amount) {
@@ -17,12 +18,10 @@ class AccountOperator {
   }
 
   #addOperation(type, amount) {
-    let operation = { date: getDate(), credit: 0, debit: 0 };
-    operation[type] = amount;
+    let operation = this.#newOperationObject(type, amount);
     this.#history.push(operation);
-    return `You have sucessfully ${type}ed your account with: £${amount}, Balance: £${validate(
-      this.balance
-    )}`;
+    validate(this.balance);
+    return `Sucessfully ${type}ed your account with the amount: £${amount}`;
   }
 
   #runOperations() {
@@ -32,6 +31,13 @@ class AccountOperator {
       this.#history[index].balance = validate(balance);
     });
     return Number(balance);
+  }
+
+  #newOperationObject(type, amount) {
+    let operation = { date: getDate(), credit: 0, debit: 0 };
+    operation[type] = amount;
+    valid(operation.credit + operation.debit);
+    return operation;
   }
 
   get balance() {

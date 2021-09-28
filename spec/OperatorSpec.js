@@ -70,52 +70,98 @@ describe("AccountOperator class", () => {
     });
   });
 
-  describe("Testing edge cases on live interaction", () => {
-    beforeEach(() => {
-      emptyOperator = new AccountOperator();
-    });
+  describe("Edge cases on live interaction", () => {
+    describe("should throw Error if we try to", () => {
+      beforeEach(() => {
+        emptyOperator = new AccountOperator();
+      });
 
-    it("should throw Error if we try to debit 100 on a balance of 50", () => {
-      emptyOperator.creditAccount(50);
-      expect(function () {
-        emptyOperator.debitAccount(100);
-      }).toThrow("Not enough balance");
-    });
+      it(" debit 100 more then the balance of 50", () => {
+        emptyOperator.creditAccount(50);
+        expect(function () {
+          emptyOperator.debitAccount(100);
+        }).toThrow("Not enough balance");
+      });
 
-    it("should throw Error if we try to credit a negative number -50", () => {
-      expect(function () {
-        emptyOperator.creditAccount(-50);
-      }).toThrow("Negative value");
-    });
+      it(" credit a negative number -50", () => {
+        expect(function () {
+          emptyOperator.creditAccount(-50);
+        }).toThrow("Negative value");
+      });
 
-    it("should throw Error if we try to debit a negative number -50", () => {
-      expect(function () {
-        emptyOperator.debitAccount(-50);
-      }).toThrow("Negative value");
-    });
+      it(" debit a negative number -50", () => {
+        expect(function () {
+          emptyOperator.debitAccount(-50);
+        }).toThrow("Negative value");
+      });
 
-    it("should throw Error if we try to credit a non-number (abc)", () => {
-      expect(function () {
-        emptyOperator.creditAccount("abc");
-      }).toThrow("Invalid amount");
-    });
+      it(" credit using a non-number (abc)", () => {
+        expect(function () {
+          emptyOperator.creditAccount("abc");
+        }).toThrow("Invalid amount");
+      });
 
-    it("should throw Error if we try to debit a negative number (abc)", () => {
-      expect(function () {
-        emptyOperator.debitAccount("abc");
-      }).toThrow("Invalid amount");
-    });
+      it(" debit using a non-number (abc)", () => {
+        expect(function () {
+          emptyOperator.debitAccount("abc");
+        }).toThrow("Invalid amount");
+      });
 
-    it("should throw Error if we try to credit a 0 amount", () => {
-      expect(function () {
-        emptyOperator.creditAccount(0);
-      }).toThrow("Null amount");
-    });
+      it(" credit using a 0-null amount", () => {
+        expect(function () {
+          emptyOperator.creditAccount(0);
+        }).toThrow("Null amount");
+      });
 
-    it("should throw Error if we try to debit a 0 amount", () => {
-      expect(function () {
-        emptyOperator.debitAccount(0);
-      }).toThrow("Null amount");
+      it(" debit using a 0-null amount", () => {
+        expect(function () {
+          emptyOperator.debitAccount(0);
+        }).toThrow("Null amount");
+      });
+    });
+  });
+
+  describe("Edge cases on a preexisting account history", () => {
+    describe("should throw Error if we instantiate account history", () => {
+      it(" without date", () => {
+        expect(function () {
+          new AccountOperator([{ credit: 250, debit: 0 }]);
+        }).toThrow("Missing date, history");
+      });
+
+      it(" without credit", () => {
+        expect(function () {
+          new AccountOperator([{ date: "21/10/2021", debit: 0 }]);
+        }).toThrow("Invalid credit history");
+      });
+
+      it(" without debit", () => {
+        expect(function () {
+          new AccountOperator([{ date: "21/10/2021", credit: 0 }]);
+        }).toThrow("Invalid debit history");
+      });
+
+      it(" with non-numeric debit amount", () => {
+        expect(function () {
+          new AccountOperator([
+            { date: "21/10/2021", credit: 0, debit: "abc" },
+          ]);
+        }).toThrow("Invalid debit history");
+      });
+
+      it(" with non-numeric credit amount", () => {
+        expect(function () {
+          new AccountOperator([
+            { date: "21/10/2021", credit: "abc", debit: 0 },
+          ]);
+        }).toThrow("Invalid credit history");
+      });
+
+      it(" with 0-null credit and debit amount", () => {
+        expect(function () {
+          new AccountOperator([{ date: "21/10/2021", credit: 0, debit: 0 }]);
+        }).toThrow("Null amount");
+      });
     });
   });
 });

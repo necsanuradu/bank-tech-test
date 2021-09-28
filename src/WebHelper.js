@@ -1,12 +1,10 @@
 let validateHistory = (operations) => {
   operations.forEach((operation) => {
-    if (!operation.hasOwnProperty("date")) throw "Missing date history";
-    if (!operation.hasOwnProperty("credit")) throw "Missing credit history";
-    if (!operation.hasOwnProperty("debit")) throw "Missing debit history";
+    if (!operation.hasOwnProperty("date")) throw "Missing date, history";
     if (isNaN(operation.credit)) throw "Invalid credit history";
     if (isNaN(operation.debit)) throw "Invalid debit history";
+    valid(operation.debit + operation.credit);
   });
-  return operations;
 };
 
 let valid = (amount) => {
@@ -33,16 +31,5 @@ let createStatementView = (transactionsList) => {
   transactionsList = transactionsList.reverse().map((transaction) => {
     return Object.values(transaction).join(separator);
   });
-  let statement = header
-    .concat(transactionsList)
-    .join("\n")
-    .replace(/ 0 /g, " ");
-  console.log(statement);
-  return statement;
+  return header.concat(transactionsList).join("\n").replace(/ 0 /g, " ");
 };
-
-//   set operators(operationnList){
-//    this._operators = JSON.parse(operationnList).filter((operation) => {
-//      return true;
-//    });
-//   }
