@@ -1,42 +1,45 @@
 "use strict";
-class Operator {
+class AccountOperator {
   #history;
-  #ballance;
-  #accountView;
   constructor(history = []) {
-    this.#history = this.#validateHistory(history);
+    this.#history = validateHistory(history);
   }
 
-  #runOperationns() {
-    this.#ballance = 0;
-    this.#accountView = [];
-    this.#history.forEach((transaction) => {
-      this.#execute(transaction);
+  creditAccount(amount) {
+    amount = valid(amount);
+    return this.#addOperation("credit", amount);
+  }
+
+  debitAccount(amount) {
+    amount = valid(amount);
+    validate(this.balance, amount);
+    return this.#addOperation("debit", amount);
+  }
+
+  #addOperation(type, amount) {
+    let operation = { date: getDate(), credit: 0, debit: 0 };
+    operation[type] = amount;
+    this.#history.push(operation);
+    return `You have sucessfully ${type}ed your account with: £${amount}, Balance: £${validate(
+      this.balance
+    )}`;
+  }
+
+  #runOperations() {
+    let balance = 0;
+    this.#history.forEach((transaction, index) => {
+      balance += Number(transaction.credit) - Number(transaction.debit);
+      this.#history[index].balance = validate(balance);
     });
+    return Number(balance);
   }
 
-  getBallance() {
-    this.#runOperationns();
-    return this.#ballance;
+  get balance() {
+    return this.#runOperations();
   }
 
-  getStatement() {
-    this.#runOperationns();
-    return this.#accountView.length > 0
-      ? this.#accountView
-      : "No transactions.";
+  get statement() {
+    if (this.#history.length === 0) return "No transactions. Balance: £0";
+    else return createStatementView(this.#history);
   }
-
-  #validateHistory(operationnsList) {
-    return operationnsList;
-  }
-
-  #execute(transaction) {
-    this.#ballance += 250;
-  }
-  //   set operators(operationnList){
-  //    this._operators = JSON.parse(operationnList).filter((operation) => {
-  //      return true;
-  //    });
-  //   }
 }
