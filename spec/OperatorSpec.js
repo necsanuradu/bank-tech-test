@@ -123,6 +123,13 @@ describe("AccountOperator class", () => {
 
   describe("Edge cases on a preexisting account history", () => {
     describe("should throw Error if we instantiate account history", () => {
+      beforeEach(() => {
+        negativeOperator = new AccountOperator([
+          { date: "21/10/2021", credit: 100, debit: 0 },
+          { date: "21/10/2021", credit: 0, debit: 200 },
+        ]);
+      });
+
       it(" without date", () => {
         expect(function () {
           new AccountOperator([{ credit: 250, debit: 0 }]);
@@ -161,6 +168,12 @@ describe("AccountOperator class", () => {
         expect(function () {
           new AccountOperator([{ date: "21/10/2021", credit: 0, debit: 0 }]);
         }).toThrow("Null amount");
+      });
+
+      it(" with the balance having a negative value at any given time", () => {
+        expect(function () {
+          negativeOperator.balance;
+        }).toThrow("Negative balance");
       });
     });
   });

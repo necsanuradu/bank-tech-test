@@ -11,39 +11,46 @@ Do to its nature financially related the system will have multiple constrains re
 | ------------- | ------------- |
 | Deposit | Confirmation - You have sucessfully deposited £.. into your account|
 | Withdraw  |  Confirmation - You have successfully debited your account with the amount of £ ..|
-| Request Balance | Bank statement - transactions(date, credit, debit, ballance)
+| Request Balance | numeric value |
+| Bank statement | transactions(date, credit, debit, ballance) |
 
 ## Edge cases
 ### - in the non-testing environment:
 The edge cases described below will not tolerate invalid input and will respond negating the execution with the same for all message(We are really sorry but your transaction has been denied, Please see a bank operator at your next branch or call this number (000)0000000).
 ### - in the testing invironment the negation of execution message will return relevant information for the reason of denial.
 * the input data will be of NaN(not a number) type
-* the input data will not be of this format 00.00 with two decimals points
 * the input data in case of a debit operation will exceed the current balance of the account(we will discuss with our client if maximum transaction limit is intented for both credit and debit operators).
+* the history list of operations will include invalid data date, credit or debit related
+* running the history operations the balance will have at any time a negative value
 
 
-
-## Storage 
-Data will persist during this exercise using localStorage technologies (on your local machine/browser)
+## Persistance 
+ * Data will NOT persist during this exercise
 
 ## Model 
+ * The AccountOperator class includes the private methods for both credit and debit operations in addition to the statement and balance attributes(while read using get they execute the #runOperations private function), the statement will serve a readable view with all the transactions executed within the requested timeframe.
  
- * The UserAccount class apart from holding within its state the unique identifiers for the current user and all other active credentials will instantiate and pass the account's transaction history from the localStorage to the new instantiated Operator class which should withhold and run this state until told otherwise. It will also have a method to destroy the Operator class if so instructed.
-
- * The Operator class includes the private methods for both credit and debit operators in addition to the statement method which will serve a readable view with all the transactions executed within the requested timeframe.
- 
-## running at 
+## running the programm
+ * please run in your terminal once located inside the main directory of this application:
+ #### open SpecRunner.html
 
 ## Technologies: 
 * programming - Javascript
 * testing envoronment -  Jasmine 3.3
-* serving on your local machine - http-server
+* serving - open your SpecRunner.html file directly on your browser
 
 
 ## Model table
-| Class | Method | State |
+| Class | Method | Attribute |
 |--------------------|--------------------|--------------------|
-| UserAccount | | |
+| UserAccount |creditAccount(), debitAccount() | balance, statement |
+
+
+## Tests
+ * 23 test in total
+ * 9 testing interactive behaviour - expected response
+ * 14 testing edge cases
+
 
 ## User stories
 ```
