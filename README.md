@@ -1,10 +1,38 @@
 # Bank-tech-test
 
 ## Logic
-```
-As we have discussed in one of our workshops in case of banks the common practice does not store the state of the account, its balance but knowing the initial balance £0 for any and all the accounts while logging in all the succesfull transactions opearated on an account the balance is finalised and verified across multiple systems.
+
+As we have discussed in one of our workshops for banks the common practice does not store the state of the account, its balance but knowing the initial balance £0 for any and all the accounts while logging in all the succesfull transactions opearated on the account the balance is calculated and verified across multiple systems.
 Do to its nature financially related the system will have multiple constrains referencing the input data before being passed towards execution therefore avoiding error messages that could expose the system in any way at any level.
+
+
+## Usage 
+#### (in the browser console running SpecRunner.html)
+### Instantiate the account operator class(with no account history)
+``` 
+let operator = new AccountOperator()
 ```
+### Instantiate the account operator class(with some account history)
+``` 
+let operator = new AccountOperator([{ date: 21/10/2021, credit: 250, debit: 0 }, { date: 22/10/2021, credit: 0, debit: 150 }])
+```
+### Request balance
+``` 
+operator.balance
+```
+### Request statement
+``` 
+operator.statement
+```
+### Deposit 300 
+``` 
+operator.creditAccount(300)
+```
+### Withdraw 300
+``` 
+operator.debitAccount(300)
+```
+
 
 ## Input - output table
 | Input  | Output |
