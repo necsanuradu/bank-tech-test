@@ -38,6 +38,6 @@ class AccountOperator {
 
   get statement() {
     if (this.#history.length === 0) return "No transactions. Balance: £0";
-    else return createStatementView(this.#history);
+    else return createStatementView(this.#history.slice());
   }
 }
