@@ -65,7 +65,7 @@ The edge cases described below will not tolerate invalid input and will respond 
 
 ## Technologies: 
 * programming - Javascript
-* testing envoronment -  Jasmine 3.3
+* testing environment -  Jasmine 3.3
 * serving - open your SpecRunner.html file directly on your browser
 
 
