@@ -22,11 +22,11 @@ describe("AccountOperator class", () => {
       expect(emptyOperator.balance).toEqual(25);
     });
 
-    it("should return No transactions for an empty Account with no transaction history", () => {
+    it("should return No transactions for an empty Account", () => {
       expect(emptyOperator.statement).toEqual("No transactions. Balance: £0");
     });
 
-    it("should return the statement in the format set in the exmapleStatement", () => {
+    it("should return the statement formatted as in the exmapleStatement", () => {
       emptyOperator.creditAccount(1000);
       emptyOperator.creditAccount(2000);
       emptyOperator.debitAccount(500);
@@ -63,7 +63,7 @@ describe("AccountOperator class", () => {
       expect(operator125.balance).toEqual(50);
     });
 
-    it("should return 75 for an Account with 100, debited 50, credited 25", () => {
+    it("should return 75 for balance 100, debited 50, credited 25", () => {
       operator125.debitAccount(50);
       operator125.creditAccount(25);
       expect(operator125.balance).toEqual(75);
@@ -176,7 +176,7 @@ describe("AccountOperator class", () => {
         }).toThrow("Invalid operation, history");
       });
 
-      it("operation with the balance having a negative value at any given time", () => {
+      it("operation with the balance negative value at any given time", () => {
         expect(function () {
           negativeOperator.balance;
         }).toThrow("Negative balance");
