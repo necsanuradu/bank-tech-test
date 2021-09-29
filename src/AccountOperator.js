@@ -2,31 +2,32 @@
 class AccountOperator {
   #history;
   constructor(history = []) {
-    validateHistory(history);
-    this.#history = Operation.objectifyOperations(history);
+    this.validator = new DataValidator();
+    this.validator.validateHistory(history);
+    this.#history = Operation.objectifyOperations(history, this.validator);
   }
 
   creditAccount(amount) {
-    amount = valid(amount);
+    amount = this.validator.valid(amount);
     return this.#addOperation("credit", amount);
   }
 
   debitAccount(amount) {
-    amount = valid(amount);
-    validate(this.balance, amount);
+    amount = this.validator.valid(amount);
+    this.validator.validate(this.balance, amount);
     return this.#addOperation("debit", amount);
   }
 
   #addOperation(type, amount) {
     this.#history.push(new Operation(type, amount));
-    validate(this.balance);
+    this.validator.validate(this.balance);
     return `Sucessfully ${type}ed your account with the amount: £${amount}`;
   }
 
   #runOperations(balance) {
     this.#history.forEach((operation, index) => {
       balance += Number(operation.credit) - Number(operation.debit);
-      operation.insertBalance(balance);
+      operation.insertBalance(balance, this.validator);
     });
     return Number(balance);
   }
