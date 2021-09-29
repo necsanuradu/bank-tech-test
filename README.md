@@ -2,8 +2,9 @@
 
 ## Logic
 
-As we have discussed in one of our workshops for banks the common practice does not store the state of the account, its balance but knowing the initial balance £0 for any and all the accounts while logging in all the succesfull transactions opearated on the account the balance is calculated and verified across multiple systems.
-Do to its nature financially related the system will have multiple constrains referencing the input data before being passed towards execution therefore avoiding error messages that could expose the system in any way at any level.
+As we have discussed in one of our workshops for banks the common practice is not to store the state of the account, its balance, but knowing the initial balance £0 for any and all the accounts while processing in all the successful transactions operated on the account the balance is calculated every single time and verified across multiple systems.
+In this exercise we do store the balance on each operation as an attribute NOT used in processing or decision making, but to be present in the statement as recorded last time (the balance still gets recalculated every time we interact with the program).
+Do to its nature financially related the system will have multiple constrains referencing the input data before being passed towards execution, therefore avoiding error messages that could expose the system in any way at any level.
 
 
 ## Usage 
