@@ -3,7 +3,7 @@ class AccountOperator {
   #history;
   constructor(history = []) {
     validateHistory(history);
-    this.#history = history;
+    this.#history = Operation.objectifyOperations(history);
   }
 
   creditAccount(amount) {
@@ -18,30 +18,21 @@ class AccountOperator {
   }
 
   #addOperation(type, amount) {
-    let operation = this.#newOperationObject(type, amount);
-    this.#history.push(operation);
+    this.#history.push(new Operation(type, amount));
     validate(this.balance);
     return `Sucessfully ${type}ed your account with the amount: £${amount}`;
   }
 
-  #runOperations() {
-    let balance = 0;
-    this.#history.forEach((transaction, index) => {
-      balance += Number(transaction.credit) - Number(transaction.debit);
-      this.#history[index].balance = validate(balance);
+  #runOperations(balance) {
+    this.#history.forEach((operation, index) => {
+      balance += Number(operation.credit) - Number(operation.debit);
+      operation.insertBalance(balance);
     });
     return Number(balance);
   }
 
-  #newOperationObject(type, amount) {
-    let operation = { date: getDate(), credit: 0, debit: 0 };
-    operation[type] = amount;
-    valid(operation.credit + operation.debit);
-    return operation;
-  }
-
   get balance() {
-    return this.#runOperations();
+    return this.#runOperations(0);
   }
 
   get statement() {

@@ -76,44 +76,44 @@ describe("AccountOperator class", () => {
         emptyOperator = new AccountOperator();
       });
 
-      it(" debit 100 more then the balance of 50", () => {
+      it(" debitAccount 100 more then the balance of 50", () => {
         emptyOperator.creditAccount(50);
         expect(function () {
           emptyOperator.debitAccount(100);
         }).toThrow("Not enough balance");
       });
 
-      it(" credit a negative number -50", () => {
+      it(" creditAccount a negative number -50", () => {
         expect(function () {
           emptyOperator.creditAccount(-50);
         }).toThrow("Negative value");
       });
 
-      it(" debit a negative number -50", () => {
+      it(" debitAccount a negative number -50", () => {
         expect(function () {
           emptyOperator.debitAccount(-50);
         }).toThrow("Negative value");
       });
 
-      it(" credit using a non-number (abc)", () => {
+      it(" creditAccount using a non-number (abc)", () => {
         expect(function () {
           emptyOperator.creditAccount("abc");
         }).toThrow("Invalid amount");
       });
 
-      it(" debit using a non-number (abc)", () => {
+      it(" debitAccount using a non-number (abc)", () => {
         expect(function () {
           emptyOperator.debitAccount("abc");
         }).toThrow("Invalid amount");
       });
 
-      it(" credit using a 0-null amount", () => {
+      it(" creditAccount using a 0-null value", () => {
         expect(function () {
           emptyOperator.creditAccount(0);
         }).toThrow("Null amount");
       });
 
-      it(" debit using a 0-null amount", () => {
+      it(" debitAccount using a 0-null value", () => {
         expect(function () {
           emptyOperator.debitAccount(0);
         }).toThrow("Null amount");
@@ -130,25 +130,25 @@ describe("AccountOperator class", () => {
         ]);
       });
 
-      it(" without date", () => {
+      it("operation without/missing date value", () => {
         expect(function () {
           new AccountOperator([{ credit: 250, debit: 0 }]);
         }).toThrow("Missing date, history");
       });
 
-      it(" without credit", () => {
+      it("operation without/missing credit value", () => {
         expect(function () {
           new AccountOperator([{ date: "21/10/2021", debit: 0 }]);
         }).toThrow("Invalid credit history");
       });
 
-      it(" without debit", () => {
+      it("operation without/missing debit value", () => {
         expect(function () {
           new AccountOperator([{ date: "21/10/2021", credit: 0 }]);
         }).toThrow("Invalid debit history");
       });
 
-      it(" with non-numeric debit amount", () => {
+      it("operation with non-numeric debit value", () => {
         expect(function () {
           new AccountOperator([
             { date: "21/10/2021", credit: 0, debit: "abc" },
@@ -156,7 +156,7 @@ describe("AccountOperator class", () => {
         }).toThrow("Invalid debit history");
       });
 
-      it(" with non-numeric credit amount", () => {
+      it("operation with non-numeric credit value", () => {
         expect(function () {
           new AccountOperator([
             { date: "21/10/2021", credit: "abc", debit: 0 },
@@ -164,13 +164,19 @@ describe("AccountOperator class", () => {
         }).toThrow("Invalid credit history");
       });
 
-      it(" with 0-null credit and debit amount", () => {
+      it("operation with 0-null both credit and debit value", () => {
         expect(function () {
           new AccountOperator([{ date: "21/10/2021", credit: 0, debit: 0 }]);
         }).toThrow("Null amount");
       });
 
-      it(" with the balance having a negative value at any given time", () => {
+      it("operation with both credit and debit non-0 value", () => {
+        expect(function () {
+          new AccountOperator([{ date: "21/10/2021", credit: 20, debit: 10 }]);
+        }).toThrow("Invalid operation, history");
+      });
+
+      it("operation with the balance having a negative value at any given time", () => {
         expect(function () {
           negativeOperator.balance;
         }).toThrow("Negative balance");

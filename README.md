@@ -75,9 +75,9 @@ The edge cases described below will not tolerate invalid input and will respond 
 
 
 ## Tests
- * 23 test in total
+ * 24 test in total
  * 9 testing interactive behaviour - expected response
- * 14 testing edge cases
+ * 15 testing edge cases
 
 
 ## User stories

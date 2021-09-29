@@ -25,8 +25,7 @@ let getDate = () => {
   return `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`;
 };
 
-let createStatementView = (transactionsList) => {
-  let separator = " || ";
+let createStatementView = (transactionsList, separator = " || ") => {
   let header = [Object.keys(transactionsList[0]).join(separator)];
   transactionsList = transactionsList.reverse().map((transaction) => {
     return Object.values(transaction).join(separator);
