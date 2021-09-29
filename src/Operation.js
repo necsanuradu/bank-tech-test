@@ -1,5 +1,4 @@
 class Operation {
-  #data;
   constructor(type, amount) {
     this.date = getDate();
     this.credit = type === "credit" ? amount : 0;
