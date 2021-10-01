@@ -17,10 +17,6 @@ let operator = new AccountOperator()
 ``` 
 let operator = new AccountOperator([{ date: 21/10/2021, credit: 250, debit: 0 }, { date: 22/10/2021, credit: 0, debit: 150 }])
 ```
-### Request balance
-``` 
-operator.balance
-```
 ### Request statement
 ``` 
 operator.statement
@@ -38,10 +34,10 @@ operator.debitAccount(300)
 ## Input - output table
 | Input  | Output |
 | ------------- | ------------- |
-| Deposit | Confirmation - You have sucessfully deposited £.. into your account|
-| Withdraw  |  Confirmation - You have successfully debited your account with the amount of £ ..|
+| Deposit | |
+| Withdraw  |  |
 | Request Balance | numeric value |
-| Bank statement | transactions(date, credit, debit, ballance) |
+| Bank statement | transactions(date, credit, debit) |
 
 ## Edge cases
 ### - in the non-testing environment:

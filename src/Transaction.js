@@ -1,4 +1,4 @@
-class Operation {
+class Transaction {
   constructor(type, amount, date = getDate()) {
     this.date = date;
     this.credit = type === "credit" ? amount : 0;
@@ -10,10 +10,10 @@ class Operation {
     this.balance = balance;
   }
 
-  static objectifyOperations(operations, validator) {
-    return operations.map((operation) => {
-      let type = validator.validateOperation(operation);
-      return new Operation(type, operation[type], operation.date);
+  static objectifyTransactions(transactions, validator) {
+    return transactions.map((transaction) => {
+      let type = validator.validateTransaction(transaction);
+      return new Transaction(type, transaction[type], transaction.date);
     });
   }
 }

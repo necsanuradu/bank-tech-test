@@ -4,36 +4,35 @@ class AccountOperator {
   constructor(history = []) {
     this.validator = new DataValidator();
     this.validator.validateHistory(history);
-    this.#history = Operation.objectifyOperations(history, this.validator);
+    this.#history = Transaction.objectifyTransactions(history, this.validator);
   }
 
   creditAccount(amount) {
-    amount = this.validator.valid(amount);
-    return this.#addOperation("credit", amount);
+    amount = this.validator.isValid(amount);
+    return this.#addTransaction("credit", amount);
   }
 
   debitAccount(amount) {
-    amount = this.validator.valid(amount);
+    amount = this.validator.isValid(amount);
     this.validator.validate(this.balance, amount);
-    return this.#addOperation("debit", amount);
+    return this.#addTransaction("debit", amount);
   }
 
-  #addOperation(type, amount) {
-    this.#history.push(new Operation(type, amount));
+  #addTransaction(type, amount) {
+    this.#history.push(new Transaction(type, amount));
     this.validator.validate(this.balance);
-    return `Sucessfully ${type}ed your account with the amount: £${amount}`;
   }
 
-  #runOperations(balance) {
-    this.#history.forEach((operation, index) => {
-      balance += Number(operation.credit) - Number(operation.debit);
-      operation.insertBalance(balance, this.validator);
+  #runTransactions(balance) {
+    this.#history.forEach((transaction, index) => {
+      balance += Number(transaction.credit) - Number(transaction.debit);
+      transaction.insertBalance(balance, this.validator);
     });
     return Number(balance);
   }
 
   get balance() {
-    return this.#runOperations(0);
+    return this.#runTransactions(0);
   }
 
   get statement() {

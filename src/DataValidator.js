@@ -1,14 +1,14 @@
 class DataValidator {
-  validateHistory(operations) {
-    operations.forEach((operation) => {
-      if (!operation.hasOwnProperty("date")) throw "Missing date, history";
-      if (isNaN(operation.credit)) throw "Invalid credit history";
-      if (isNaN(operation.debit)) throw "Invalid debit history";
-      this.valid(operation.debit + operation.credit);
+  validateHistory(transactions) {
+    transactions.forEach((transaction) => {
+      if (!transaction.hasOwnProperty("date")) throw "Missing date, history";
+      if (isNaN(transaction.credit)) throw "Invalid credit history";
+      if (isNaN(transaction.debit)) throw "Invalid debit history";
+      this.isValid(transaction.debit + transaction.credit);
     });
   }
 
-  valid(amount) {
+  isValid(amount) {
     if (isNaN(amount)) throw "Invalid amount";
     if (Number(amount) < 0) throw "Negative value";
     if (Number(amount) === 0) throw "Null amount";
@@ -21,10 +21,10 @@ class DataValidator {
     return Number(balance).toFixed(2);
   }
 
-  validateOperation(operation) {
-    let checkArray = [operation.debit, operation.credit];
+  validateTransaction(transaction) {
+    let checkArray = [transaction.debit, transaction.credit];
     if (Math.min(...checkArray) === 0 && Math.max(...checkArray) !== 0)
-      return operation.debit === 0 ? "credit" : "debit";
+      return transaction.debit === 0 ? "credit" : "debit";
     else throw "Invalid operation, history";
   }
 }
