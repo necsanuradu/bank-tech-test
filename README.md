@@ -1,3 +1,10 @@
+# Screenshots
+
+
+![Image 01-10-2021 at 09 27](https://user-images.githubusercontent.com/71831322/135591628-8e600a7c-74d4-45e8-ba91-fc35ae37f895.jpeg)
+
+![Image 01-10-2021 at 09 23](https://user-images.githubusercontent.com/71831322/135591685-671a95bd-0bc6-443d-b8e7-1360b2a39167.jpeg)
+
 # Bank-tech-test
 
 ## Logic
